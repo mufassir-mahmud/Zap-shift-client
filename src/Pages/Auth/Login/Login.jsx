@@ -2,6 +2,8 @@ import React from 'react';
 import imgUploadIcon from '../../../assets/image-upload-icon.png'
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import { Link } from 'react-router';
 const Login = () => {
     const {signInUser} = useAuth()
     const {register,
@@ -70,6 +72,9 @@ formState: { errors },
                             )}
           <div><a className="link link-hover">Forgot password?</a></div>
           <button className="btn btn-neutral mt-4">Login</button>
+          <p>Don't Have an Account?  Please <Link to={'/register'} className='text-blue-400 font-bold'>Register</Link></p>
+          <div className="divider">OR</div>
+          <SocialLogin></SocialLogin>
         </fieldset> 
         </form>
       
