@@ -3,9 +3,12 @@ import imgUploadIcon from '../../../assets/image-upload-icon.png'
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 const Login = () => {
     const {signInUser} = useAuth()
+    const location = useLocation()
+    console.log(location)
+    const navigate = useNavigate()
     const {register,
     handleSubmit,
 formState: { errors },
@@ -14,6 +17,7 @@ formState: { errors },
         signInUser(data.email,data.password)
         .then(result => {
             console.log(result.user)
+            navigate(location.state)
         })
         .catch(error =>{
             console.log(error)
@@ -72,7 +76,7 @@ formState: { errors },
                             )}
           <div><a className="link link-hover">Forgot password?</a></div>
           <button className="btn btn-neutral mt-4">Login</button>
-          <p>Don't Have an Account?  Please <Link to={'/register'} className='text-blue-400 font-bold'>Register</Link></p>
+          <p>Don't Have an Account?  Please <Link state={location.state} to={'/register'} className='text-blue-400 font-bold'>Register</Link></p>
           <div className="divider">OR</div>
           <SocialLogin></SocialLogin>
         </fieldset> 

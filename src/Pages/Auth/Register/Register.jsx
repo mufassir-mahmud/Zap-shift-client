@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import imgUploadIcon from "../../../assets/image-upload-icon.png";
 import useAuth from "./../../../Hooks/useAuth";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
 const Register = () => {
@@ -11,33 +11,42 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const location = useLocation();
+  const navigate = useNavigate()
   const { registerUser,updateUserProfile } = useAuth();
 
   const handleRegister = (data) => {
     console.log(data);
+    // Collect photo from data
     const profileURL = data.photo[0]
     registerUser(data.email, data.password, data.photo[0])
       .then((result) => {
         console.log(result.user);
+        // store the photo in from data
         const formData = new FormData();
         formData.append('image', profileURL);
+        // imgbb API
         const imggbb_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb_api}`
+      //  axios post
         axios.post(imggbb_API_URL,formData)
         .then(res => {
             console.log(res.data)
+            // collect profile info
             const userProfile = {
                 displayName : data.name,
                 photoURL: res.data.data.url
             }
+            // updateprofile from firebase
             updateUserProfile(userProfile)
             .then(() =>{
                 console.log('succesfully added profile')
+                 navigate(location.state)
             })
             .catch(error =>{
                 console.log(error)
             })
         })
+       
       })
       .catch((error) => {
         console.log(error.message);
@@ -141,7 +150,7 @@ const Register = () => {
               </button>
               <p>
                 Already Have an Account ? Please{" "}
-                <Link to={"/login"}>
+                <Link state={location.state} to={"/login"}>
                   <span className="black font-bold">Login</span>
                 </Link>
               </p>
