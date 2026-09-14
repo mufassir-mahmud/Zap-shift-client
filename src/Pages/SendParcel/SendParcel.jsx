@@ -47,6 +47,7 @@ const SendParcel = () => {
         }
     }
     console.log(cost)
+    data.cost = cost
     Swal.fire({
   title: "Are you sure?",
   text: `You will Charge ${cost} taka`,
