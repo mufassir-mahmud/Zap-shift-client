@@ -23,7 +23,7 @@ const updateUserRole = (user, role) => {
         role: role
     };
 
-    axiosSecure.patch(`/users/${user._id}`, userRole)
+    axiosSecure.patch(`/users/${user._id}/role`, userRole)
         .then(res => {
 
             console.log("Update result:", res.data);

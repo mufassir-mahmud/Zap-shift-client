@@ -4,8 +4,11 @@ import { FaBoxOpen } from "react-icons/fa6";
 import { FaCreditCard } from "react-icons/fa";
 import { RiEBike2Fill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
+import useRole from '../Hooks/useRole';
 const Dashboard = () => {
-    return (
+  const {role} = useRole() ;
+  console.log(role) 
+  return (
         <div>
             <div className="drawer lg:drawer-open">
   <input id="my-drawer-4" type="checkbox" className="drawer-toggle inline" />
@@ -65,7 +68,9 @@ const Dashboard = () => {
           </Link>
           
         </li>
-        <li>
+        {
+          role === 'admin' && <>
+           <li>
           <Link to={'/dashboard/approve-rider'}>
           <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="approve-rider">
             {/* Settings icon */}
@@ -85,7 +90,7 @@ const Dashboard = () => {
             {/* Settings icon */}
             <div className='flex gap-2 items-center justify-center'>
               <FaUserSecret   className="my-1.5 inline-block size-4" />
-            <span className="is-drawer-close:hidden" >Approve Rider</span>
+            <span className="is-drawer-close:hidden" >Users Management</span>
             </div>
             
             
@@ -93,6 +98,9 @@ const Dashboard = () => {
           </Link>
           
         </li>
+          </>
+        }
+       
       </ul>
     </div>
   </div>
