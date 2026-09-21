@@ -17,10 +17,10 @@ formState: { errors },
         signInUser(data.email,data.password)
         .then(result => {
             console.log(result.user)
-            navigate(location.state)
+            navigate(location.state?.from?.pathname || '/');
         })
         .catch(error =>{
-            console.log(error)
+            console.log(error)  
         })
     }
     return (

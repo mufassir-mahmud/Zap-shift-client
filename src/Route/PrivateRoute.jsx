@@ -14,9 +14,15 @@ const PrivateRoute = ({children}) => {
             <span className="loading loading-ball loading-xl"></span>
         </div>
     }
-    if(!user){
-        return <Navigate state={location.pathname} to={'/login'}></Navigate>
-    }
+  if (!user) {
+    return (
+        <Navigate
+            to="/login"
+            state={{ from: location }}
+            replace
+        />
+    );
+}
     return children;
 };
 

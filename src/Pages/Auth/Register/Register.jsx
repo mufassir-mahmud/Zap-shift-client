@@ -5,6 +5,7 @@ import useAuth from "./../../../Hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const Register = () => {
   const {
     register,
@@ -14,14 +15,14 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate()
   const { registerUser,updateUserProfile } = useAuth();
-
+  const axiosSecure = useAxiosSecure();
   const handleRegister = (data) => {
-    console.log(data);
+    // console.log(data);
     // Collect photo from data
     const profileURL = data.photo[0]
     registerUser(data.email, data.password, data.photo[0])
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
+        // console.log(result.user);
         // store the photo in from data
         const formData = new FormData();
         formData.append('image', profileURL);
@@ -30,17 +31,29 @@ const Register = () => {
       //  axios post
         axios.post(imggbb_API_URL,formData)
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             // collect profile info
+            const photoURL = res.data.data.url;
+            const userInfo = {
+              displayName : data.name,
+              email: data.email,
+              photoURL: photoURL
+            }
+            axiosSecure.post('/users', userInfo)
+            .then(res => {
+              if(res.data.insertedId){
+                console.log('Added In Database')
+              }
+            })
             const userProfile = {
                 displayName : data.name,
-                photoURL: res.data.data.url
+                photoURL: photoURL
             }
             // updateprofile from firebase
             updateUserProfile(userProfile)
             .then(() =>{
                 console.log('succesfully added profile')
-                 navigate(location.state)
+                 navigate(location.state?.from?.pathname || '/');
             })
             .catch(error =>{
                 console.log(error)
