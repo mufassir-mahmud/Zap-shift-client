@@ -14,28 +14,42 @@ const ApproveRider = () => {
       return res.data;
     },
   });
-  const updatRiderStatus = (rider,status) =>{
-    const updateInfo = {status: status, email: rider.RiderEmail};
+  const updatRiderStatus = (rider, status) => {
+
+    const updateInfo = {
+        status: status,
+        email: rider.RiderEmail
+    };
+
+    console.log('Sending:', updateInfo);
+
     axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
-    .then(res => {
-      if(res.data.modifiedCount){
-        refetch()     
-        Swal.fire({
+        .then(res => {
+            console.log('PATCH response:', res.data);
+
+            if (res.data.modifiedCount) {
+                refetch();
+
+                Swal.fire({
                     position: "center",
                     icon: "success",
                     title: `Rider Status is Set to ${status}`,
                     showConfirmButton: false,
                     timer: 1500
-                  })
-      }
-    })
-  }
-  const handleApproval = (rider) =>{
-    updatRiderStatus(rider, 'Approved');
-  }
-  const handleReject = (rider) =>{
-    updatRiderStatus(rider, 'Reject');
-  }
+                });
+            }
+        })
+        .catch(error => {
+            console.log('PATCH ERROR:', error);
+        });
+};
+ const handleApproval = (rider) => {
+    updatRiderStatus(rider, 'approved');
+};
+
+const handleReject = (rider) => {
+    updatRiderStatus(rider, 'rejected');
+};
   const handleDelete = (rider) =>{
           const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -95,11 +109,12 @@ const ApproveRider = () => {
             {/* head */}
             <thead>
               <tr>
-                
+                <th></th>
                 <th>Rider Name</th>
                 <th>Email</th>
                 <th>District</th>
-                <th>Status</th>
+                <th>Approve Status</th>
+                <th>Work Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -109,7 +124,9 @@ const ApproveRider = () => {
                 <th>{i+1}</th>
                 <td>{r.RiderName}</td>
                 <td>{r.RiderEmail}</td>
+                <td>{r.RiderDistrict}</td>
                 <td>{r.status}</td>
+                <td>{r.workStatus}</td>
                 <td>
                     <div className="">
                         <button className="btn btn-sm" onClick={()=> handleApproval(r)}><FaUserCheck className="text-xl" /></button>

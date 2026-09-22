@@ -73,6 +73,7 @@ swalWithBootstrapButtons.fire({
         <th>Name</th>
         <th>Cost</th>
         <th>Payment</th>
+        <th>Traking ID</th>
         <th>Delivery Status</th>
         <th>Action</th>
       </tr>
@@ -87,6 +88,7 @@ swalWithBootstrapButtons.fire({
           parcel.paymentStatus === 'paid' ? <button className="btn btn-sm text-black btn-primary">Paid</button> : <Link to={`/dashboard/payment/${parcel._id}`}><button className="btn btn-sm text-black btn-primary">Pay</button></Link>
           }
           </td>
+        <td>{parcel.trackingId}</td>
         <td>{parcel.deliveryStatus}</td>
         
         <td className=''>

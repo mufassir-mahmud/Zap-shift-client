@@ -4,6 +4,8 @@ import { FaBoxOpen } from "react-icons/fa6";
 import { FaCreditCard } from "react-icons/fa";
 import { RiEBike2Fill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
+import { RiEBikeFill } from "react-icons/ri";
+
 import useRole from '../Hooks/useRole';
 const Dashboard = () => {
   const {role} = useRole() ;
@@ -77,6 +79,20 @@ const Dashboard = () => {
             <div className='flex gap-2 items-center justify-center'>
               <RiEBike2Fill  className="my-1.5 inline-block size-4" />
             <span className="is-drawer-close:hidden" >Approve Rider</span>
+            </div>
+            
+            
+          </button>
+          </Link>
+          
+        </li>
+           <li>
+          <Link to={'/dashboard/assign-riders'}>
+          <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="assign-riders">
+            {/* Settings icon */}
+            <div className='flex gap-2 items-center justify-center'>
+              <RiEBikeFill   className="my-1.5 inline-block size-4" />
+            <span className="is-drawer-close:hidden" >Assign-Riders</span>
             </div>
             
             
