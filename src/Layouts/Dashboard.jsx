@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
 import { FaBoxOpen } from "react-icons/fa6";
-import { FaCreditCard } from "react-icons/fa";
+import { FaCreditCard, FaTasks } from "react-icons/fa";
 import { RiEBike2Fill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
 import { RiEBikeFill } from "react-icons/ri";
@@ -70,6 +70,38 @@ const Dashboard = () => {
           </Link>
           
         </li>
+        {
+          role === 'rider' && <>
+          <li>
+          <Link to={'/dashboard/assigned-deliveries'}>
+          <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned-Deliveries">
+            {/* Settings icon */}
+            <div className='flex gap-2 items-center justify-center'>
+              <FaTasks className="my-1.5 inline-block size-4" />
+            <span className="is-drawer-close:hidden" >Assigned Deliveries</span>
+            </div>
+            
+            
+          </button>
+          </Link>
+          
+        </li>
+          <li>
+          <Link to={'/dashboard/rider-completed-deliveries'}>
+          <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Rider-Completed-Deliveries">
+            {/* Settings icon */}
+            <div className='flex gap-2 items-center justify-center'>
+              <FaTasks className="my-1.5 inline-block size-4" />
+            <span className="is-drawer-close:hidden" >Rider-Completed-Deliveries</span>
+            </div>
+            
+            
+          </button>
+          </Link>
+          
+        </li>
+          </>
+        }
         {
           role === 'admin' && <>
            <li>

@@ -20,6 +20,10 @@ import ApproveRider from "../Pages/Dashboard/ApproveRider/ApproveRider";
 import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
 import AdminRoute from "./AdminRoute";
 import AssignRiders from "../Pages/Dashboard/AssignRiders/AssignRiders";
+import RidersRoute from "./RidersRoute";
+import AssignedDeliveries from "../Pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
+import RiderCompletedDeliveries from "../Pages/Dashboard/RiderCompletedDeliveries/RiderCompletedDeliveries";
+import ParcelTrack from "../Pages/ParcelTrack/ParcelTrack";
 export const router = createBrowserRouter([
 
   {
@@ -44,6 +48,11 @@ export const router = createBrowserRouter([
         path: 'coverage',
         Component: Coverage,
         loader: () => fetch('/warehouses.json').then(res => res.json())
+      },
+      {
+        path: 'parcel-track/:trackingId',
+        Component: ParcelTrack
+
       }
     ]
   },
@@ -78,13 +87,21 @@ export const router = createBrowserRouter([
         Component: PaymentSuccess
       },
       {
+  path: 'payment-history',
+  Component: PaymentHistory
+},
+      {
         path: 'payment-cancelled',
         Component : PaymentCancelled
       },
-      {
-        path: 'payment-history',
-        Component: PaymentHistory
-      },
+       {
+        path: 'assigned-deliveries',
+        element: <RidersRoute><AssignedDeliveries></AssignedDeliveries></RidersRoute>
+       },
+       {
+        path: 'rider-completed-deliveries',
+        element: <RidersRoute><RiderCompletedDeliveries></RiderCompletedDeliveries></RidersRoute>
+       },
       {
         path: 'approve-rider',
         element: <AdminRoute><ApproveRider></ApproveRider></AdminRoute>

@@ -21,7 +21,8 @@ const Payment = () => {
             cost: parcel.cost,
             parcelId : parcel._id,
             parcelName: parcel.parcelName,
-            senderEmail: parcel.SenderEmail
+            senderEmail: parcel.SenderEmail,
+            trackingId: parcel.trackingId
         }
         console.log(parcel.cost)
         console.log(parcel)

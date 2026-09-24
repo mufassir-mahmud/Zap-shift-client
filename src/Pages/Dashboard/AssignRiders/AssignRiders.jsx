@@ -49,7 +49,8 @@ const { data: riders = [] } = useQuery({
         riderId : rider._id,
         riderName : rider.RiderName,
         riderEmail : rider.RiderEmail,
-        parcelId: selectedParcel._id
+        parcelId: selectedParcel._id,
+        trackingId: selectedParcel.trackingId
     }
     axiosSecure.patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
     .then(res => {

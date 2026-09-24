@@ -1,19 +1,19 @@
 import React from 'react';
-import useAuth from '../Hooks/useAuth';
-import useRole from '../Hooks/useRole';
 import Loader from '../Components/Loader/Loader';
 import ForbidenAccess from '../Components/ForbidenAccess/ForbidenAccess';
+import useAuth from '../Hooks/useAuth';
+import useRole from '../Hooks/useRole';
 
-const AdminRoute = ({children}) => {
-    const { loader} = useAuth();
+const RidersRoute = ({children}) => {
+    const { loader, user} = useAuth();
     const {role, roleLoading} = useRole();
-    if(loader || roleLoading){
+    if(loader || !user || roleLoading){
         return <Loader></Loader>
     }    
-    if(role !== 'admin'){
+    if(role !== 'rider'){
         return <ForbidenAccess></ForbidenAccess>
     }
     return children;
 };
 
-export default AdminRoute;
+export default RidersRoute;
